@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0B0E14;
+  --color-surface: #131720;
+  --color-surface2: #1B212D;
+  --color-line: #232A38;
+  --color-ink: #E6E8EF;
+  --color-muted: #8B93A7;
+  --color-accent: #7C9EFF;
+  --color-amber: #FFB454;
+  --color-diffAdd: #7EE787;
+  --color-diffDel: #FF8B8B;
+
+  --font-display: var(--display-font), sans-serif;
+  --font-body: var(--body-font), sans-serif;
+  --font-mono: var(--mono-font), monospace;
+
+  --animate-blink: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+::selection {
+  background: #7C9EFF;
+  color: #0B0E14;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0B0E14;
+  color: #E6E8EF;
+}
+
+/* thin scrollbar, editor-like */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0E14;
+}
+::-webkit-scrollbar-thumb {
+  background: #232A38;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2c3444;
+}
+
+/* subtle grid texture used behind the hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, #ffffff08 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff08 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
