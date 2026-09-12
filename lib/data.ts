@@ -1,18 +1,26 @@
 export const profile = {
-  name: "Jevon Wong",
+  name: "Jevon Wong Arsyale",
   role: "Software Engineer",
   location: "Semarang, Indonesia",
   tagline:
-    "Aku membangun aplikasi web yang cepat, rapi, dan enak dipakai — dari ide sampai production.",
+    `Student at SMKN 8 Semarang.
+Software and Game Development Major.`,
   email: "jevonwong0@gmail.com",
   github: "https://github.com/jevonww",
-  linkedin: "https://linkedin.com/in/namakamu",
-  stack: ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL", "Tailwind CSS"],
+  stack: [
+    "TypeScript",
+    "React",
+    "Next.js",
+    "Node.js",
+    "PostgreSQL",
+    "Tailwind CSS",
+    "Flutter",
+    "Supabase",
+    "Dart",
+  ],
 };
 
-export const about = `Aku software engineer dengan fokus di frontend, tapi cukup nyaman
-bolak-balik ke backend kalau diperlukan. Suka merapikan hal yang berantakan —
-baik itu UI yang berantakan atau kodebase yang butuh refactor.`;
+export const about = `I enjoy building websites, messing around with code, and figuring out why something suddenly stopped working. When I’m not coding, you’ll probably find me playing games, exploring new tech, or pretending I’ll stop playing after “one more game.`;
 
 export type Project = {
   slug: string;
@@ -21,8 +29,11 @@ export type Project = {
   stack: string[];
   status: "production" | "active" | "archived";
   metric: string;
-  link?: string;
-  repo?: string;
+  image: string; // Tambahkan field image
+  links: {
+    demo: string;
+    source: string;
+  };
 };
 
 export const projects: Project[] = [
@@ -31,12 +42,43 @@ export const projects: Project[] = [
     slug: "TrashSmart-apk",
     name: "TrashSmart-apk",
     description:
-      "Aplikasi mobile untuk edukasi bagaimana mengelola sampah secara efisien.",
+      "Mobile application for education on how to manage waste efficiently.",
     stack: ["Flutter", "Supabase", "Dart"],
     status: "active",
     metric: "",
-    link: "https://github.com/jevonww/trashmart",
-    repo: "https://github.com/jevonww/trashmart",
+    image: "/projects/trashsmart.png", // Path gambar placeholder
+    links: {
+      demo: "https://trashsmartdownload.vercel.app/",
+      source: "https://github.com/jevonww/trashmart",
+    },
+  },
+  {
+    slug: "Bexs-Door",
+    name: "Bexs Door",
+    description:
+    "E-commerce website for selling Bexs Door products.",
+    stack: ["Laravel", "PHP", "MySQL"],
+    status: "active",
+    metric: "",
+    image: "/projects/bexsdoor.png", // Path gambar placeholder
+    links: {
+      demo: "",
+      source: "https://github.com/jevonww/bexs-door",
+    },
+  },
+  {
+    slug: "Ecommerce-Web",
+    name: "Tahu Bakso Ecommerce",
+    description:
+      "Online shopping platform for Semarang's signature Tahu Bakso products with a checkout system.",
+    stack: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS"],
+    status: "active",
+    metric: "",
+    image: "/projects/ecommerce.png", // Path gambar placeholder
+    links: {
+      demo: "",
+      source: "https://github.com/jevonww/website-praukk",
+    },
   },
  
 ];
@@ -46,6 +88,9 @@ export type Commit = {
   date: string;
   title: string;
   detail: string;
+  image?: string;
+  location: string;
+  mapLink: string;
   additions: number;
   deletions: number;
 };
@@ -57,7 +102,10 @@ export const timeline: Commit[] = [
     date: "2024 — 2027",
     title: "SMKN 8 SEMARANG",
     detail:
-      "Masuk ke jurusan PPLG (Pemrograman Perangkat Lunak dan Gim) dan mulai belajar dasar-dasar pemrograman.",
+      "Focusing on web and mobile application development. Involved in various team collaboration projects to build school information systems and inventory management applications.",
+    image: "/experience/smk.jpg",
+    location: "Semarang, Indonesia",
+    mapLink: "https://maps.app.goo.gl/xQYcTas3tkf4z7nc7",
     additions: 96,
     deletions: 12,
   },
@@ -66,7 +114,10 @@ export const timeline: Commit[] = [
     date: "2021 — 2024",
     title: "SMPN 3 Semarang",
     detail:
-      "Belum mengenal tentang dunia programming.",
+      "Early exploration phase in information technology.",
+    image: "/experience/smpn3.png",
+    location: "Semarang, Indonesia",
+    mapLink: "https://maps.app.goo.gl/idByajJoqVNKvznY7",
     additions: 64,
     deletions: 8,
   },
@@ -75,8 +126,12 @@ export const timeline: Commit[] = [
     date: "2015 - 2021",
     title: "SDN Pekunden",
     detail:
-      "",
+      "Elementary education period that shaped character and learning interests.",
+    image: "/experience/sdn.png",
+    location: "Semarang, Indonesia",
+    mapLink: "https://maps.app.goo.gl/5VQrh3BvnWuP8oA89",
     additions: 20,
     deletions: 0,
   },
 ];
+

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -22,7 +23,11 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Portofolio",
-  
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -32,7 +37,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body className="font-body bg-bg text-ink antialiased">{children}</body>
+      <body className="font-body bg-bg text-ink antialiased">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

@@ -10,12 +10,16 @@ export default function Home() {
   return (
     <main>
       <Nav />
-      <Hero />
-      <About />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+      <div id="smooth-wrapper">
+        <div id="smooth-content">
+          <Hero />
+          <About />
+          <Projects />
+          <Experience />
+          <Contact />
+          <Footer />
+        </div>
+      </div>
     </main>
   );
 }

@@ -1,0 +1,8 @@
+.letter-wrapper {
+  display: inline-block;
+  perspective: 500px;
+}
+
+.letter-inner {
+  transform-origin: top;
+}

@@ -1,57 +1,56 @@
-import { about, profile } from "@/lib/data";
-import RevealOnScroll from "./RevealOnScroll";
+import { about } from "@/lib/data";
+import ScrollReveal from "./ScrollReveal";
 
 export default function About() {
   const paragraphs = about.trim().split("\n\n");
 
   return (
-    <section id="about" className="border-b border-line px-5 py-24">
+    <section id="about" className="px-5 py-32 bg-[#050505] text-white">
       <div className="mx-auto max-w-5xl">
-        <RevealOnScroll>
-          <p className="font-mono text-sm text-amber">01 · about.tsx</p>
-          <h2 className="mt-3 font-display text-3xl font-bold text-ink sm:text-4xl">
-            Tentang aku
-          </h2>
-        </RevealOnScroll>
+        <ScrollReveal>
+          <div className="mb-12">
+            <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest">introduction</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-2">ABOUT ME</h2>
+          </div>
+        </ScrollReveal>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-[1fr_1.2fr]">
-          <RevealOnScroll delay={80}>
-            <div className="rounded-lg border border-line bg-surface p-6 font-mono text-sm text-muted">
-              <p className="text-diffAdd/80">/**</p>
-              {paragraphs.map((p, i) => (
-                <p key={i} className="mt-2 leading-relaxed">
-                  {" * "}
-                  {p.replace(/\n/g, " ")}
-                </p>
-              ))}
-              <p className="mt-2 text-diffAdd/80"> */</p>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delay={160}>
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wider text-muted">
-                stack yang dipakai
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {profile.stack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-line bg-surface px-3 py-1 font-mono text-xs text-ink"
-                  >
-                    {tech}
-                  </span>
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7 space-y-6">
+            <ScrollReveal delay={200}>
+              <h2 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight mb-8">
+                Vocational high school student
+who loves tech, web development,
+and probably spends too much time gaming.
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={300}>
+              <div className="space-y-4">
+                {paragraphs.map((p, i) => (
+                  <p key={i} className="text-neutral-400 text-base sm:text-lg leading-relaxed">
+                    {p}
+                  </p>
                 ))}
               </div>
-
-              <p className="mt-8 font-mono text-xs uppercase tracking-wider text-muted">
-                lokasi
-              </p>
-              <p className="mt-2 font-body text-ink">{profile.location}</p>
-            </div>
-          </RevealOnScroll>
+            </ScrollReveal>
+          </div>
+          
+          <div className="lg:col-span-5 flex justify-center">
+            <ScrollReveal delay={400}>
+              <div className="relative group w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border border-neutral-800 bg-neutral-900/50 shadow-2xl p-2 rotate-2 hover:rotate-0 transition-transform duration-500 ease-out">
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                <div className="absolute inset-0 border-2 border-white/10 rounded-2xl pointer-events-none z-20" />
+                <img 
+                  src="/ligo.jpg" 
+                  alt="Jevon Wong" 
+                  className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500" 
+                />
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+

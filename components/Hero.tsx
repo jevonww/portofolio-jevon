@@ -1,91 +1,82 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { profile } from "@/lib/data";
-import { ArrowDown } from "lucide-react";
+import TechTicker from "./TechTicker";
+import CRTWarp from "./CRTWarp";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-const lines = [
-  { indent: 0, text: `const profil = {` },
-  { indent: 1, text: `nama: "${profile.name}",` },
-  { indent: 1, text: `peran: "${profile.role}",` },
-  { indent: 1, text: `lokasi: "${profile.location}",` },
-  { indent: 1, text: `stack: [${profile.stack.map((s) => `"${s}"`).join(", ")}],` },
-  { indent: 0, text: `};` },
-];
+import SplitFlapText from "./SplitFlapText";
 
 export default function Hero() {
-  const [typedLines, setTypedLines] = useState<string[]>([]);
-  const [cursorLine, setCursorLine] = useState(0);
-  const [cursorChar, setCursorChar] = useState(0);
-  const [done, setDone] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (cursorLine >= lines.length) {
-      setDone(true);
-      return;
-    }
-    const currentText = lines[cursorLine].text;
-    if (cursorChar <= currentText.length) {
-      const timeout = setTimeout(() => {
-        setTypedLines((prev) => {
-          const copy = [...prev];
-          copy[cursorLine] = currentText.slice(0, cursorChar);
-          return copy;
-        });
-        setCursorChar((c) => c + 1);
-      }, 18);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setCursorLine((l) => l + 1);
-        setCursorChar(0);
-      }, 120);
-      return () => clearTimeout(timeout);
-    }
-  }, [cursorChar, cursorLine]);
+  useGSAP(() => {
+    gsap.fromTo(".hero-animate", 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1.2, stagger: 0.15 }
+    );
+  }, { scope: containerRef });
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <section
-      id="top"
-      className="bg-grid relative flex min-h-[92vh] flex-col justify-center border-b border-line px-5"
-    >
-      <div className="mx-auto w-full max-w-5xl py-24">
-        <p className="mb-4 font-mono text-sm text-amber">// halo, aku</p>
-        <h1 className="font-display text-4xl font-bold leading-tight text-ink sm:text-5xl md:text-6xl">
-          {profile.name}
-        </h1>
-        <p className="mt-3 max-w-xl font-body text-lg text-muted">
-          {profile.tagline}
-        </p>
-
-        <div className="mt-10 w-full max-w-xl overflow-hidden rounded-lg border border-line bg-surface shadow-2xl shadow-black/40">
-          <div className="flex items-center gap-1.5 border-b border-line bg-surface2 px-4 py-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-diffDel/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber/70" />
-            <span className="h-2.5 w-2.5 rounded-full bg-diffAdd/70" />
-            <span className="ml-3 font-mono text-xs text-muted">profil.ts</span>
-          </div>
-          <pre className="min-h-[180px] p-5 font-mono text-sm leading-relaxed text-ink">
-            {lines.map((line, i) => (
-              <div key={i} style={{ paddingLeft: `${line.indent * 1.25}rem` }}>
-                {typedLines[i] ?? ""}
-                {!done && i === cursorLine && (
-                  <span className="ml-0.5 inline-block h-4 w-2 animate-blink bg-accent align-middle" />
-                )}
-              </div>
-            ))}
-          </pre>
+    <>
+      <section id="top" ref={containerRef} className="min-h-screen flex items-center justify-center bg-[#05010a] text-white px-5 pt-20 relative overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-50 will-change-transform">
+          <CRTWarp
+            color="#646cff"
+            backgroundColor="#05010a"
+            speed={0.4}
+            curvature={0.2}
+            scanlineStrength={0.2}
+            waveAmplitude={0.25}
+            bloom={1.2}
+            mouseReact={true}
+            mouseStrength={0.4}
+          />
         </div>
 
-        <button
-          onClick={() =>
-            document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
-          }
-          className="mt-14 flex items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-accent"
-        >
-          scroll <ArrowDown size={14} className="animate-bounce" />
-        </button>
-      </div>
-    </section>
+        <div className="max-w-7xl w-full relative z-10">
+          <div className="space-y-8">
+            <div className="hero-animate inline-block">
+              <p className="font-mono text-sm text-neutral-400 uppercase tracking-wider bg-black/40 px-3 py-1 rounded-full border border-neutral-800 backdrop-blur-md">
+                {profile.location} 
+              </p>
+            </div>
+            
+            <div className="hero-animate">
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-[0.9] text-white">
+                {profile.name}
+              </h1>
+            </div>
+            
+            <p className="hero-animate text-xl sm:text-2xl text-neutral-300 max-w-2xl leading-relaxed">
+              {profile.tagline}
+            </p>
+            
+            <div className="hero-animate flex flex-wrap gap-4 pt-4">
+              <button
+                onClick={() => scrollTo("projects")}
+                className="group relative px-8 py-4 bg-white text-black font-medium text-sm overflow-hidden transition-all hover:scale-105 rounded-lg shadow-lg"
+              >
+                <span className="relative z-10">View Work</span>
+              </button>
+              <button
+                onClick={() => scrollTo("contact")}
+                className="px-8 py-4 border-2 border-neutral-700 bg-black/40 backdrop-blur-md text-white font-medium text-sm hover:border-white transition-all rounded-lg"
+              >
+                Contact Me
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TechTicker />
+    </>
   );
 }

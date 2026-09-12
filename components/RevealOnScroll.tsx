@@ -1,42 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function RevealOnScroll({
-  children,
-  delay = 0,
-  className = "",
-}: {
+gsap.registerPlugin(ScrollTrigger);
+
+interface RevealProps {
   children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+}
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
+export default function RevealOnScroll({ children }: RevealProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      gsap.set(containerRef.current, { perspective: 1000 });
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 200, rotateX: -45, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 90%",
+            end: "top 30%",
+            scrub: 2,
+          },
         }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+      );
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {children}
+    <div ref={containerRef} className="w-full">
+      <div ref={contentRef} className="w-full">
+        {children}
+      </div>
     </div>
   );
 }
