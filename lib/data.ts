@@ -30,6 +30,7 @@ export type Project = {
   status: "production" | "active" | "archived";
   metric: string;
   image: string; // Tambahkan field image
+  compact?: boolean; // Tampilkan sebagai kartu kecil
   links: {
     demo: string;
     source: string;
@@ -78,6 +79,50 @@ export const projects: Project[] = [
     links: {
       demo: "",
       source: "https://github.com/jevonww/website-praukk",
+    },
+  },
+  {
+    slug: "level-up-game-lounge",
+    name: "LEVEL Up - Premium Game Lounge",
+    description:
+      "Website for a premium game lounge with room and console booking, membership perks, and an admin dashboard for managing reservations.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    status: "active",
+    metric: "",
+    image: "/projects/levelup.png",
+    links: {
+      demo: "",
+      source: "https://github.com/jevonww/website-reservasi-gamelounge",
+    },
+  },
+  {
+    slug: "whatsapp-bot",
+    name: "Bot WhatsApp",
+    description:
+      "A fun WhatsApp bot packed with jokes, mini games, random commands, and other entertainment features to keep group chats lively.",
+    stack: ["Node.js"],
+    status: "active",
+    metric: "",
+    image: "/projects/whatsapp-bot.png", // Ganti path gambar di sini
+    compact: true,
+    links: {
+      demo: "",
+      source: "https://github.com/jevonww/bot-wa",
+    },
+  },
+  {
+    slug: "discord-bot",
+    name: "Level Up Voice Bot",
+    description:
+      "Discord bot that tracks time spent in voice channels and rewards members with XP, levels, and rank progression the longer they hang out.",
+    stack: ["Node.js"],
+    status: "active",
+    metric: "",
+    image: "/projects/discord-bot.png", // Ganti path gambar di sini
+    compact: true,
+    links: {
+      demo: "",
+      source: "https://github.com/jevonww/bot-discord-levelupvoice",
     },
   },
  
