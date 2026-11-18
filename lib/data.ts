@@ -103,7 +103,7 @@ export const projects: Project[] = [
     stack: ["Node.js"],
     status: "active",
     metric: "",
-    image: "/projects/whatsapp-bot.png", // Ganti path gambar di sini
+    image: "/projects/whatsapp-bot-logo.png", // Ganti path gambar di sini
     compact: true,
     links: {
       demo: "",
